@@ -28,9 +28,9 @@ public class LonelyTwitterActivity extends Activity {
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
-	private ArrayList<Tweet> tweetList = new ArrayList<Tweet>();
+	private ArrayList<Tweet> tweetList;
 	private ArrayAdapter<Tweet> adapter;
-	
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -47,7 +47,21 @@ public class LonelyTwitterActivity extends Activity {
 				setResult(RESULT_OK);
 				String text = bodyText.getText().toString();
 				Tweet newTweet = new NormalTweet(text);
+				if (tweetList == null){
+					tweetList = new ArrayList<Tweet>();
+				}
 				tweetList.add(newTweet);
+				adapter.notifyDataSetChanged();
+				saveInFile();
+			}
+		});
+		Button clearButton = (Button) findViewById(R.id.clear);
+		clearButton.setOnClickListener(new View.OnClickListener() {
+
+			public void onClick(View v) {
+				setResult(RESULT_OK);
+
+				tweetList.clear();
 				adapter.notifyDataSetChanged();
 				saveInFile();
 			}
@@ -61,6 +75,9 @@ public class LonelyTwitterActivity extends Activity {
 		loadFromFile();
 		adapter = new ArrayAdapter<Tweet>(this,
 				R.layout.list_item, tweetList);
+		if (oldTweetsList == null){
+			oldTweetsList = (ListView) findViewById(R.id.oldTweetsList);
+		}
 		oldTweetsList.setAdapter(adapter);
 	}
 
@@ -75,13 +92,13 @@ public class LonelyTwitterActivity extends Activity {
 			tweetList = gson.fromJson(in, listType);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
-			throw new RuntimeException();
+			tweetList = new ArrayList<Tweet>();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			throw new RuntimeException();
 		}
 	}
-	
+
 	private void saveInFile() {
 		try {
 

@@ -1,5 +1,6 @@
 package ca.ualberta.cs.lonelytwitter;
 
+import java.util.Comparator;
 import java.util.Date;
 
 /**
@@ -47,4 +48,14 @@ public abstract class Tweet implements Tweetable {
     public Date getDate() {
         return date;
     }
+
+    public static Comparator<Tweet> getCompByDate() {
+        Comparator comp = new Comparator<Tweet>() {
+
+            public int compare(Tweet s1, Tweet s2) {
+                return s1.getDate().compareTo(s2.getDate());
+            }
+        };
+        return comp;
+    };
 }
