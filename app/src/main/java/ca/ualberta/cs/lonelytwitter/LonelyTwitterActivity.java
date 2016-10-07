@@ -1,3 +1,10 @@
+/*
+Copyright (C) 2016 Team 20, CMPUT301, University of Alberta - All Rights Reserved.
+You may  use, copy or distribute this code under terms and condition of University of Alberta
+and Code of Student Behavior
+Please contact mqu@ualberta.ca for more details or questions.
+*/
+
 package ca.ualberta.cs.lonelytwitter;
 
 import java.io.BufferedReader;
@@ -23,15 +30,40 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+/**
+ * This class is the main view class in lonelyTwiiter class
+ * it deals with user inputs, saves/loads them in/from the file FILE_NANEM (file.sav)
+ * </p>You can access this file from Android Device Monitor</p>
+ * <pre>pre-formatted</pre>
+ *
+ * @author MC
+ * @since 1.4
+ * @see Tweet
+ * @see java.io.BufferedReader
+ * @see TweetList
+ */
+
+
 public class LonelyTwitterActivity extends Activity {
+
+	/**
+	 * This is the name of the file is saved in your virtual device
+	 * You can access it through Android Moniter by selecting you app,
+	 * then data -> data -> file.sav
+	 * @see NormalTweet
+	 */
 
 	private static final String FILENAME = "file.sav";
 	private EditText bodyText;
 	private ListView oldTweetsList;
 	private ArrayList<Tweet> tweetList;
 	private ArrayAdapter<Tweet> adapter;
+	/**
+	* testing multi-line documentation
+	* Tesing
+	 */
 
-	/** Called when the activity is first created. */
+	/*Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -68,6 +100,9 @@ public class LonelyTwitterActivity extends Activity {
 		});
 	}
 
+	/**
+	 * method to be called when the app is opening
+	 */
 	@Override
 	protected void onStart() {
 		// TODO Auto-generated method stub
@@ -80,6 +115,12 @@ public class LonelyTwitterActivity extends Activity {
 		}
 		oldTweetsList.setAdapter(adapter);
 	}
+	/**
+	 * This method loads the dson file generates the tweets from its contents
+	 * @throws RuntimeException
+	 * @exception  FileNotFoundException
+	 *
+	 */
 
 	private void loadFromFile() {
 		ArrayList<String> tweets = new ArrayList<String>();
@@ -99,6 +140,11 @@ public class LonelyTwitterActivity extends Activity {
 		}
 	}
 
+	/**
+	 * This is the method save the arraylist into gson file file,sav
+	 * @throws RuntimeException
+	 * @exception  FileNotFoundException
+	 */
 	private void saveInFile() {
 		try {
 

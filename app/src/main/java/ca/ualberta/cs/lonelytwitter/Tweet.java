@@ -5,7 +5,12 @@ import java.util.Date;
 
 /**
  * Created by watts1 on 9/15/16.
+ * the class to store tweet and data
+ * @see TweetList
+ * @see ImportantTweet
+ * @see NormalTweet
  */
+
 public abstract class Tweet implements Tweetable {
     private String message;
     private Date date;
@@ -28,6 +33,11 @@ public abstract class Tweet implements Tweetable {
     public abstract Boolean isImportant();
 
 
+    /**
+     * use to change the message
+     * @param message
+     * @throws TweetTooLongException
+     */
 
     public void setMessage(String message) throws TweetTooLongException {
         if (message.length() > 140){
@@ -48,6 +58,11 @@ public abstract class Tweet implements Tweetable {
     public Date getDate() {
         return date;
     }
+
+    /**
+     * the custom comparator for sorting data
+     * @return comp
+     */
 
     public static Comparator<Tweet> getCompByDate() {
         Comparator comp = new Comparator<Tweet>() {
