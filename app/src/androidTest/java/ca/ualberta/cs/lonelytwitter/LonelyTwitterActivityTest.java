@@ -10,6 +10,9 @@ import com.robotium.solo.Solo;
 
 import junit.framework.TestCase;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+
 /**
  * Created by wz on 14/09/15.
  */
@@ -66,7 +69,11 @@ public class LonelyTwitterActivityTest extends ActivityInstrumentationTestCase2<
 
         solo.assertCurrentActivity("Wrong Activity", EditTweetActivity.class);
 
-        assertTrue(solo.waitForText("New Activity"));
+        String a = ((Tweet) oldTweetsList.getItemAtPosition(0)).getMessage();
+        DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+        String b = df.format(((Tweet) oldTweetsList.getItemAtPosition(0)).getDate());
+
+        assertTrue(solo.waitForText(a+"  "+b));
 
         solo.goBack();
         solo.assertCurrentActivity("Wrong Activity", LonelyTwitterActivity.class);

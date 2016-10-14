@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.lang.reflect.Type;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -77,6 +79,9 @@ public class LonelyTwitterActivity extends Activity {
 					public void onItemClick(AdapterView<?> parent, View view,
 											int position ,long id){
 						Intent intent = new Intent(activity, EditTweetActivity.class);
+						intent.putExtra("message",tweetList.get(position).getMessage());
+						DateFormat df = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+						intent.putExtra("date",df.format(tweetList.get(position).getDate()));
 						startActivity(intent);
 					}
 
